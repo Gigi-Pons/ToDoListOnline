@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LoginForm.css';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -39,16 +40,16 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-container">
       <div>
         <label>Username:</label>
         <input type="text" value={username} onChange={handleUsernameChange} />
-        {usernameError && <div style={{ color: 'red' }}>{usernameError}</div>}
+        {usernameError && <div className="error-message">{usernameError}</div>}
       </div>
       <div>
         <label>Password:</label>
         <input type="password" value={password} onChange={handlePasswordChange} />
-        {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+        {passwordError && <div className="error-message">{passwordError}</div>}
       </div>
       <div>
         <input
@@ -60,7 +61,7 @@ function LoginForm() {
       </div>
       <button type="submit">Login</button>
       <div>
-        <a href="/forgot-password">Forgot Password?</a>
+        <a href="/forgot-password" className="forgot-password">Forgot Password?</a>
       </div>
     </form>
   );
