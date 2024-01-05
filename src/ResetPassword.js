@@ -1,6 +1,7 @@
 // ResetPassword.js
 
 import React, { useState } from 'react';
+import './ResetPassword.css';
 
 function ResetPassword() {
   const [password, setPassword] = useState('');
@@ -19,7 +20,7 @@ function ResetPassword() {
   };
 
   return (
-    <div>
+    <div className="reset-password-container">
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
         <div>

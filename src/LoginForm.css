@@ -2,7 +2,7 @@
 .form-container {
     max-width:400px;
     margin: auto;
-    padding:20px;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
@@ -18,9 +18,9 @@
   .form-container input[type="password"],
   .form-container input[type="checkbox"] {
     width: 95%;
-    padding: 8px;
+    padding: 13px;
     margin: 0 auto;
-    margin-bottom:20px;
+    margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
