@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './AuthContext';
+import PrivateRoute from './PrivateRoute'; // Import PrivateRoute
 import TaskList from './TaskList';
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
@@ -11,17 +13,24 @@ import './App.css';
 
 function App() {
   return (
+    <AuthProvider> {/* Wrap everything inside AuthProvider */}
       <Router>
         <Navigation />
         <Routes>
-          <Route path="/tasks" element={<TaskForm />} />
+          {/* Protected routes */}
+          <Route path="/tasks" element={<PrivateRoute component={TaskForm} />} />
+          <Route path="/edit-task" element={<PrivateRoute component={TaskList} />} />
+
+          {/* Public routes */}
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/edit-task" element={<TaskList />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Add other routes as needed */}
         </Routes>
       </Router>
+    </AuthProvider>
   );
 }
 
