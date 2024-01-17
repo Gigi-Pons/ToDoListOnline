@@ -1,0 +1,37 @@
+/* Home.css */
+.home-container {
+    text-align: center;
+    padding: 100px;
+  }
+  
+  .home-actions {
+    margin-top: 10px;
+  }
+  
+  .home-button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .home-button:hover {
+    background-color: #0056b3;
+  }
+
+  p {
+    color: black;
+    font-size: 20px; /* Set paragraph text color to black */
+  }
+
+  /* Home.css */
+.home-container h1 {
+  color: #007bff;
+  font-size: 50px; /* Replace #yourColorHere with the hex code of the color you want */
+}
+
+
+
+  

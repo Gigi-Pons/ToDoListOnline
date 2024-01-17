@@ -9,6 +9,7 @@ import TaskForm from './TaskForm';
 import Navigation from './Navigation';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
+import Home from './Home';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Router>
         <Navigation />
         <Routes>
+          <Route path="/" element={<Home />} />
           {/* Protected routes */}
           <Route path="/tasks" element={<PrivateRoute component={TaskForm} />} />
           <Route path="/edit-task" element={<PrivateRoute component={TaskList} />} />

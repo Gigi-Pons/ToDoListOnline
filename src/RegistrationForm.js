@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './RegistrationForm.css';
 
+
 function RegistrationForm() {
   // State for each form field
   const [fullName, setFullName] = useState('');
@@ -39,7 +40,7 @@ function RegistrationForm() {
   };
 
   return (
-    <div>
+    <div className="register-form-container">
     <form onSubmit={handleSubmit}>
       <div>
         <label>Full Name:</label>

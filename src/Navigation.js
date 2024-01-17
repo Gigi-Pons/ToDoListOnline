@@ -12,10 +12,10 @@ function Navigation() {
       <nav>
         <ul>
           {!isAuthenticated && (
-            <>
+            <div className="loginButtons">
               <li><Link to="/login">Login</Link></li>
               <li><Link to="/register">Register</Link></li>
-            </>
+            </div>
           )}
           {isAuthenticated && (
             <>

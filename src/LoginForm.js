@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './LoginForm.css';
+import { AuthContext } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -7,6 +10,9 @@ function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const { login } = useContext(AuthContext);
+  const history = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -28,15 +34,34 @@ function LoginForm() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!username || !password) {
       setUsernameError(!username ? 'Username is required' : '');
       setPasswordError(!password ? 'Password is required' : '');
       return;
     }
-    // Handle login logic here
-    console.log('Login with:', username, password);
+    
+    try {
+      const response = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        // Call the login function from AuthContext
+        login();
+        history.push('/'); 
+      } else {
+        // Handle errors (e.g., incorrect credentials)
+        console.error('Login failed');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
