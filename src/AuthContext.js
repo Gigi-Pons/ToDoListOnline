@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   // Add logic to manage authentication state
   const login = () => {
     setIsAuthenticated(true);
+    console.log("Logging in...");
     // Implement login logic
   };
 

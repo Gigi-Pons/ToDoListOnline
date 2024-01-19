@@ -11,6 +11,8 @@ function LoginForm() {
   const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+  const [loginSuccess, setLoginSuccess] = useState(''); // Add this line
+
   const { login } = useContext(AuthContext);
   const history = useNavigate();
 
@@ -54,17 +56,24 @@ function LoginForm() {
       if (response.ok) {
         // Call the login function from AuthContext
         login();
-        history.push('/'); 
+        setLoginSuccess('SUCCESSFUL LOGIN'); 
+        console.log("Response status:", response.status);
+        console.log("Response OK:", response.ok);
+
       } else {
         // Handle errors (e.g., incorrect credentials)
         console.error('Login failed');
+        setLoginSuccess('NOT LOGGED IN');
       }
     } catch (error) {
       console.error('Error:', error);
+      setLoginSuccess('CREDENTIALS WERE INVALID');
     }
   };
 
   return (
+    <>
+  {loginSuccess && <h1>{loginSuccess}</h1>}
     <form onSubmit={handleSubmit} className="form-container">
       <div>
         <label>Username:</label>
@@ -89,6 +98,7 @@ function LoginForm() {
         <a href="/forgot-password" className="forgot-password">Forgot Password?</a>
       </div>
     </form>
+    </>
   );
 }
 

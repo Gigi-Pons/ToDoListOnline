@@ -37,8 +37,30 @@ app.post('/register', (req, res) => {
   const newUser = { username, password };
   users.push(newUser);
 
-  res.status(201).json({ message: 'User registered successfully'});
+  res.status(201).json({ message: 'User registered successfully!'});
 });
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  // Simple validation
+  if (!username || !password) {
+    return res.status(400).send('Username and password are required');
+  }
+
+  // Find the user in the database
+  const user = users.find(user => user.username === username && user.password === password);
+
+  if (user) {
+    // User found and password matches
+    // In a real application, you might want to generate a token or a session here
+    res.status(201).json({ message: 'Login successful' });
+  } else {
+    // User not found or password does not match
+    res.status(401).send('Invalid credentials');
+  }
+});
+
 
 app.get('/users', (req, res) => {
   res.json(users);
