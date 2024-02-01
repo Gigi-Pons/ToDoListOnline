@@ -1,50 +1,65 @@
-import React, { useState } from 'react';
-import './TaskForm.css';
+// TaskForm.js
+import React, { useState, useEffect } from 'react';
 
-//New Task
-function TaskForm() {
-  const [taskName, setTaskName] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
-  const [taskPriority, setTaskPriority] = useState('Low');
+function TaskForm({ task, onSave, onCancel }) {
+  const [taskData, setTaskData] = useState({
+    name: '',
+    description: '',
+    priority: 'Low'
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you can handle the submission of the task details
-    console.log('Task Details:', { taskName, taskDescription, taskPriority });
-    // This is where you'd typically send the data to a server or handle it accordingly
+  useEffect(() => {
+    // Set the form fields to the task details when editing an existing task
+    if (task) {
+      setTaskData(task);
+    }
+  }, [task]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setTaskData({ ...taskData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(taskData);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="task-form">
-      <div className="content">
+    <form onSubmit={handleSubmit}>
+      <div>
         <label>Task Name:</label>
-        <input 
-          type="text" 
-          value={taskName} 
-          onChange={(e) => setTaskName(e.target.value)} 
-          required 
+        <input
+          type="text"
+          name="name"
+          value={taskData.name}
+          onChange={handleChange}
         />
       </div>
       <div>
         <label>Task Description:</label>
-        <textarea 
-          value={taskDescription} 
-          onChange={(e) => setTaskDescription(e.target.value)} 
-          required 
+        <textarea
+          name="description"
+          value={taskData.description}
+          onChange={handleChange}
         />
       </div>
       <div>
         <label>Priority:</label>
-        <select 
-          value={taskPriority} 
-          onChange={(e) => setTaskPriority(e.target.value)}
+        <select
+          name="priority"
+          value={taskData.priority}
+          onChange={handleChange}
         >
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
         </select>
       </div>
-      <button type="submit">Save Task</button>
+      <div>
+        <button type="submit">Save Task</button>
+        <button type="button" onClick={onCancel}>Back to List</button>
+      </div>
     </form>
   );
 }

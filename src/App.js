@@ -21,6 +21,8 @@ function App() {
           <Route path="/" element={<Home />} />
           {/* Protected routes */}
           <Route path="/tasks" element={<ParentComponent />} />
+          <Route path="/task-form" element={<TaskForm/>} />
+          {/* <Route path="/edit-task" element={<ParentComponent />} />  */}
 
           {/* Public routes */}
           <Route path="/login" element={<LoginForm />} />

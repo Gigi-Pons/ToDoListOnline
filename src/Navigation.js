@@ -1,11 +1,21 @@
 // Navigation.js
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from './AuthContext'; // Import AuthContext
 import './App.css';
 
 function Navigation() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = () => {
+    logout(); // Call the logout function from AuthContext
+    navigate('/login'); // Redirect to the login page after logout
+  };
+
+  const isEditPage = location.pathname.includes('/tasks');
+  const isNewTask = location.pathname.includes('/task-form');
 
   return (
     <div className="navigation-bar">
@@ -17,11 +27,12 @@ function Navigation() {
               <li><Link to="/register">Register</Link></li>
             </div>
           )}
-          {isAuthenticated && (
+          {isAuthenticated && !isEditPage && !isNewTask && (
             <>
-              <li><Link to="/tasks">New Task</Link></li>
-              <li><Link to="/edit-task">Edit Task</Link></li>
-              {/* Add a Logout button or link */}
+              <li>
+                {/* Logout button */}
+                <button onClick={handleLogout}>Logout</button>
+              </li>
             </>
           )}
         </ul>

@@ -1,39 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './TaskList.css';
 
-function TaskList() {
-  const [tasks, setTasks] = useState([
-    { id: 1, name: 'Sample Task', description: 'Sample Description', priority: 'Low' }
-  ]);
-
-  const [editTaskId, setEditTaskId] = useState(null);
-  const [editedTask, setEditedTask] = useState({ name: '', description: '', priority: '' });
-
-  // Function to start editing a task
-  const editTask = (task) => {
-    setEditTaskId(task.id);
-    setEditedTask({ ...task });
-  };
-
-  // Function to handle changes in the edit form
-  const handleEditChange = (e) => {
-    setEditedTask({ ...editedTask, [e.target.name]: e.target.value });
-  };
-
-  // Function to save the edited task
-  const saveEdit = () => {
-    setTasks(tasks.map(task => task.id === editTaskId ? { ...editedTask } : task));
-    setEditTaskId(null);
-  };
-
-  // Function to delete a task
-  const deleteTask = (taskId) => {
-    setTasks(tasks.filter(task => task.id !== taskId));
-  };
+function TaskList({ tasks, onEdit, onDelete, onEditChange, editTaskId, editedTask, onSaveEdit }) {
 
   return (
-<div className="task-list-container">
-      <h2>Tasks</h2>
+    <div className="task-list-container">
+      <h2>List of Tasks</h2>
       <ul>
         {tasks.map(task => (
           <li key={task.id} className="task-item">
@@ -44,25 +16,25 @@ function TaskList() {
                   type="text" 
                   name="name" 
                   value={editedTask.name} 
-                  onChange={handleEditChange} 
+                  onChange={onEditChange} 
                 />
                 <div className="description-box">
                   <textarea 
                     name="description" 
                     value={editedTask.description} 
-                    onChange={handleEditChange} 
+                    onChange={onEditChange} 
                   />
                 </div>
-                  <select 
-                    name="priority" 
-                    value={editedTask.priority} 
-                    onChange={handleEditChange}
-                  >
+                <select 
+                  name="priority" 
+                  value={editedTask.priority} 
+                  onChange={onEditChange}
+                >
                   <option value="Low">Low</option>
                   <option value="Medium">Medium</option>
                   <option value="High">High</option>
                 </select>
-                <button className="save-button" onClick={saveEdit}>Save</button>
+                <button className="save-button" onClick={onSaveEdit}>Save</button>
               </div>
             ) : (
               // Display mode: task details and action buttons
@@ -71,8 +43,8 @@ function TaskList() {
                   {task.name} - {task.description} ({task.priority})
                 </div>
                 <div className="task-actions">
-                  <button className="edit-button" onClick={() => editTask(task)}>Edit</button>
-                  <button className="delete-button" onClick={() => deleteTask(task.id)}>Delete</button>
+                  <button className="edit-button" onClick={() => onEdit(task)}>Edit</button>
+                  <button className="delete-button" onClick={() => onDelete(task.id)}>Delete</button>
                 </div>
               </>
             )}

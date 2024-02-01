@@ -59,6 +59,7 @@ function LoginForm() {
         setLoginSuccess('SUCCESSFUL LOGIN'); 
         console.log("Response status:", response.status);
         console.log("Response OK:", response.ok);
+        history('/tasks'); // Redirect to the tasks page
 
       } else {
         // Handle errors (e.g., incorrect credentials)
