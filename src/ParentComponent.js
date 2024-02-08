@@ -4,6 +4,8 @@ import { AuthContext } from './AuthContext';
 import LoginForm from './LoginForm';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
+import { v4 as uuidv4 } from 'uuid';
+
 
 let nextId = 1;
 
@@ -26,7 +28,7 @@ function ParentComponent() {
       setTasks(tasks.map(t => (t.id === task.id ? task : t)));
     } else {
       // Add new task with a unique ID
-      setTasks([...tasks, { ...task, id: nextId++ }]);
+      setTasks([...tasks, { ...task, id: uuidv4() }]);
     }
     setCurrentTask(null);
     setIsEditing(false);

@@ -14,7 +14,7 @@ function RegistrationForm() {
     event.preventDefault();
       // Send a POST request to the server
       try {
-        const response = await fetch('http://localhost:3000/register', {
+        const response = await fetch('https://us-central1-taskcreator-acc.cloudfunctions.net/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
